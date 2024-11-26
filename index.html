@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>poo recording chat</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="css/ginga.jpeg" alt="">
+        <h2> 💩銀河のお散歩記録アプリ💩</h2>
+
+    </header>
+
+    <main>
+        <!-- style.cssに "overflow: auto;"を書いてみましょう！※最後に -->
+        <div id="output">
+         
+        </div>
+        <div>
+            <form>
+                <input type="date" id="today">
+
+                <select name="time" id="time">
+                    <option value="🌞">🌞</option>
+                    <option value="🌙">🌙</option>
+                </select>
+
+                <select name="poo" id="poo">
+                    <option value="💩">💩（1回）</option>
+                    <option value="💩💩">💩💩（2回）</option>
+                    <option value="💩💩💩…">💩💩💩…（3回以上！）</option>
+                    <option value="0">してない</option>
+                </select><br>
+
+                <textarea id="text" placeholder="メモ"></textarea><br>
+
+                <button id="send">データ登録</button>
+
+            </form>
+        </div>
+
+
+
+
+
+    </main>
+
+    <footer>
+        <div>
+
+
+        </div>
+
+    </footer>
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+            from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+        // Your web app's Firebase configuration
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyADUhPDs6n8W1HMw4IIKF30y5SLZOITd9M",
+            authDomain: "v2dog-5749f.firebaseapp.com",
+            projectId: "v2dog-5749f",
+            storageBucket: "v2dog-5749f.firebasestorage.app",
+            messagingSenderId: "782311758283",
+            appId: "1:782311758283:web:3a166c0a6b037e719b7e4e"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app); //RealtimeDBに接続
+        const dbRef = ref(db, "chat"); //RealtimeDB内の"chat"を使う
+
+        //データ登録(Click)
+        $("#send").on('click', function () {
+            const msg = {
+                today: $("#today").val(),
+                time: $("#time").val(),
+                poo: $("#poo").val(),
+                text: $("#text").val(),
+            }
+            const newPostRef = push(dbRef);
+            set(newPostRef, msg);
+
+            //firebaseに登録が終わったら、入力欄を空欄に
+            $("#text").val("")
+
+
+
+        });
+
+
+
+
+        //データ登録(Enter)
+
+        //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
+        onChildAdded(dbRef, function (data) {
+            const msg = data.val();
+            const key = data.key;
+
+            let h = `
+                <div class="box">
+                  <p>${msg.today}</p>                          
+                  <p>${msg.time}</p>                    
+                  <p>${msg.poo}</p>
+                  <p>${msg.text}</p>
+                </div>
+            
+            `
+            //jQueryを使って、画面に表示
+            $("#output").append(h)
+
+            //この下は消さない
+        });
+    </script>
+
+    <script type="text/javascript">
+        //今日の日時を表示
+        window.onload = function () {
+            //今日の日時を表示
+            var date = new Date()
+            var year = date.getFullYear()
+            var month = date.getMonth() + 1
+            var day = date.getDate()
+
+            var toTwoDigits = function (num, digit) {
+                num += ''
+                if (num.length < digit) {
+                    num = '0' + num
+                }
+                return num
+            }
+
+            var yyyy = toTwoDigits(year, 4)
+            var mm = toTwoDigits(month, 2)
+            var dd = toTwoDigits(day, 2)
+            var ymd = yyyy + "-" + mm + "-" + dd;
+
+            document.getElementById("today").value = ymd;
+        }
+    </script>
+</body>
+
+</html>

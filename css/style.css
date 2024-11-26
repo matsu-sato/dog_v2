@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #89c7de;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+header img {
+    height: 75px;
+    width: 75px;
+    border-radius: 30%;
+    object-fit: cover;
+    margin-left: 15px;
+
+}
+
+main {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+input {
+    width: 500px;
+    padding: 10px;
+    display: block;
+    margin: 0 auto 50px;
+}
+
+
+#output {
+    width: 90%;
+    /* 幅を調整 */
+    max-width: 500px;
+    /* 最大幅を設定 */
+    height: 300px;
+    /* 固定の高さを設定 */
+    border: 1px solid #ccc;
+    /* ボーダーを設定 */
+    margin: 0 auto;
+    /* 中央揃え */
+    border-radius: 8px;
+    /* 角を丸く */
+    padding: 10px;
+    /* 内側のパディング */
+    overflow-y: auto;
+    /* 縦方向のスクロールを許可 */
+}
+
+
+body {
+    text-align: center;
+}
+
+
+
+/* 共通のスタイルを適用して幅を揃える */
+
+form input[type="date"],
+form select,
+form textarea,
+form button {
+    width: 90%;
+    /* すべての要素の幅を同じに設定 */
+    max-width: 200px;
+    /* 幅の最大値を設定 */
+    padding: 5px;
+    margin: 5px auto;
+    display: block;
+    font-size: 1em;
+    box-sizing: border-box;
+    /* パディングを含むように */
+
+}
+
+/*LINE風のあしらいに*/
+
+.box:nth-child(odd) {
+    width: 200px;
+    padding: 20px;
+    border-radius:  87px 87px 76px 2px;
+    background: pink;
+    margin-right: auto;
+
+}
+
+.box:nth-child(even) {
+    width: 200px;
+    padding: 20px;
+    border-radius: 87px 87px 2px 76px;
+    background: rgb(226, 240, 199);
+    margin-left: auto;
+
+}
+
+
+
+form textarea {
+    resize: none;
+    height: 50px;
+    /* テキストエリアの高さ */
+
+}
+
+
+
+form button {
+
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+
+
+form button:hover {
+    background-color: #45a049;
+}
+
+.entry {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    background-color: #f6f4f4;
+
+}

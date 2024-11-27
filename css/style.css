@@ -66,7 +66,7 @@ body {
 
 /* 共通のスタイルを適用して幅を揃える */
 
-form input[type="date"],
+form input[type="datetime-local"],
 form select,
 form textarea,
 form button {
@@ -74,7 +74,7 @@ form button {
     /* すべての要素の幅を同じに設定 */
     max-width: 200px;
     /* 幅の最大値を設定 */
-    padding: 5px;
+    padding: 5px auto;
     margin: 5px auto;
     display: block;
     font-size: 1em;

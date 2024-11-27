@@ -21,22 +21,16 @@
     <main>
         <!-- style.cssに "overflow: auto;"を書いてみましょう！※最後に -->
         <div id="output">
-         
+
         </div>
         <div>
             <form>
-                <input type="date" id="today">
-
-                <select name="time" id="time">
-                    <option value="🌞">🌞</option>
-                    <option value="🌙">🌙</option>
-                </select>
-
+                <input type="datetime-local" id="today">
                 <select name="poo" id="poo">
                     <option value="💩">💩（1回）</option>
                     <option value="💩💩">💩💩（2回）</option>
                     <option value="💩💩💩…">💩💩💩…（3回以上！）</option>
-                    <option value="0">してない</option>
+                    <option value="してない">してない</option>
                 </select><br>
 
                 <textarea id="text" placeholder="メモ"></textarea><br>
@@ -54,6 +48,7 @@
 
     <footer>
         <div>
+            <p>©松宮さとこ　2024</p>
 
 
         </div>
@@ -73,12 +68,7 @@
         // Your web app's Firebase configuration
 
         const firebaseConfig = {
-            apiKey: "AIzaSyADUhPDs6n8W1HMw4IIKF30y5SLZOITd9M",
-            authDomain: "v2dog-5749f.firebaseapp.com",
-            projectId: "v2dog-5749f",
-            storageBucket: "v2dog-5749f.firebasestorage.app",
-            messagingSenderId: "782311758283",
-            appId: "1:782311758283:web:3a166c0a6b037e719b7e4e"
+
         };
 
 
@@ -88,9 +78,9 @@
 
         //データ登録(Click)
         $("#send").on('click', function () {
+            const datetimeInput = $("today").val();
             const msg = {
                 today: $("#today").val(),
-                time: $("#time").val(),
                 poo: $("#poo").val(),
                 text: $("#text").val(),
             }
@@ -116,8 +106,7 @@
 
             let h = `
                 <div class="box">
-                  <p>${msg.today}</p>                          
-                  <p>${msg.time}</p>                    
+                  <p>${msg.today}</p>                                             
                   <p>${msg.poo}</p>
                   <p>${msg.text}</p>
                 </div>
@@ -130,31 +119,24 @@
         });
     </script>
 
-    <script type="text/javascript">
-        //今日の日時を表示
-        window.onload = function () {
-            //今日の日時を表示
-            var date = new Date()
-            var year = date.getFullYear()
-            var month = date.getMonth() + 1
-            var day = date.getDate()
+<script> //今日の日時を表示
+    function toLocalISOString(date) {
+            const localDate = new Date(date - date.getTimezoneOffset() * 60000); //offset in milliseconds. Credit https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
 
-            var toTwoDigits = function (num, digit) {
-                num += ''
-                if (num.length < digit) {
-                    num = '0' + num
-                }
-                return num
-            }
-
-            var yyyy = toTwoDigits(year, 4)
-            var mm = toTwoDigits(month, 2)
-            var dd = toTwoDigits(day, 2)
-            var ymd = yyyy + "-" + mm + "-" + dd;
-
-            document.getElementById("today").value = ymd;
+            // Optionally remove second/millisecond if needed
+            localDate.setSeconds(null);
+            localDate.setMilliseconds(null);
+            return localDate.toISOString().slice(0, -1);
         }
-    </script>
+
+        window.addEventListener("load", () => {
+            document.getElementById("today").value = toLocalISOString(new Date());
+        });
+</script>
+
+
+
+
 </body>
 
 </html>
